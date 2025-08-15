@@ -285,6 +285,58 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label>Payment Method *</label>
+                            <div class="payment-options">
+                                <div class="payment-option">
+                                    <input type="radio" id="upi" name="payment" value="UPI" required>
+                                    <label for="upi" class="payment-label">
+                                        <div class="payment-icon">📱</div>
+                                        <div class="payment-info">
+                                            <strong>UPI Payment</strong>
+                                            <span>Pay instantly via UPI (Google Pay, PhonePe, Paytm)</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="payment-option">
+                                    <input type="radio" id="cod" name="payment" value="Cash on Delivery" required>
+                                    <label for="cod" class="payment-label">
+                                        <div class="payment-icon">💵</div>
+                                        <div class="payment-info">
+                                            <strong>Cash on Delivery</strong>
+                                            <span>Pay in cash when our team collects samples</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="payment-error" class="error-message" role="alert"></div>
+                        </div>
+
+                        <!-- UPI Payment Details (shown when UPI is selected) -->
+                        <div id="upiDetails" class="form-group upi-section" style="display: none;">
+                            <div class="upi-info">
+                                <h4>💳 UPI Payment Details</h4>
+                                <div class="upi-details">
+                                    <div class="upi-qr">
+                                        <p><strong>UPI Number:</strong> +91 7607244793</p>
+                                        <p><strong>Merchant Name:</strong> Hind Path Lab</p>
+                                        <p class="upi-note">📱 <em>Use this number for UPI payment</em></p>
+                                    </div>
+                                    <div class="payment-instructions">
+                                        <h5>Payment Instructions:</h5>
+                                        <ol>
+                                            <li>Open your UPI app (Google Pay, PhonePe, Paytm)</li>
+                                            <li>Use UPI Number: <strong>+91 7607244793</strong></li>
+                                            <li>Enter the test amount</li>
+                                            <li>Complete payment</li>
+                                            <li>Share screenshot via WhatsApp: +91 7607244793</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <button type="submit" class="submit-btn">
                             <span class="btn-text">Submit Booking Request</span>
                             <span class="btn-loading" style="display: none;">Processing...</span>

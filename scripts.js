@@ -205,8 +205,40 @@ function setupFormHandling() {
         input.addEventListener('input', () => clearFieldError(input));
     });
     
+    // Payment method handling
+    setupPaymentMethodHandling();
+    
     // Form submission
     form.addEventListener('submit', handleFormSubmission);
+}
+
+// Payment method functionality
+function setupPaymentMethodHandling() {
+    const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+    const upiSection = document.querySelector('.upi-section');
+    
+    if (!paymentRadios.length || !upiSection) return;
+    
+    // Initially hide UPI section
+    upiSection.style.display = 'none';
+    
+    // Handle payment method changes
+    paymentRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'upi' && this.checked) {
+                upiSection.style.display = 'block';
+                // Smooth scroll to UPI section
+                setTimeout(() => {
+                    upiSection.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest' 
+                    });
+                }, 100);
+            } else {
+                upiSection.style.display = 'none';
+            }
+        });
+    });
 }
 
 function validateField(field) {
@@ -323,6 +355,13 @@ function handleFormSubmission(e) {
         isFormValid = false;
     }
     
+    // Check if payment method is selected
+    const selectedPayment = form.querySelector('input[name="payment_method"]:checked');
+    if (!selectedPayment) {
+        showToast('Please select a payment method', 'error');
+        isFormValid = false;
+    }
+    
     if (!isFormValid) {
         showToast('Please correct the errors and try again', 'error');
         return;
@@ -340,6 +379,7 @@ function handleFormSubmission(e) {
         address: form.address.value.trim(),
         mobile: form.mobile.value.trim(),
         tests: Array.from(selectedTests).map(cb => cb.value),
+        payment_method: selectedPayment ? selectedPayment.value : '',
         timestamp: new Date().toISOString()
     };
     
