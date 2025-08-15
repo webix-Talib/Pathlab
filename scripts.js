@@ -13,6 +13,11 @@ function initializeWebsite() {
     setupAccessibility();
     setupModalHandlers();
     showWelcomeToast();
+    
+    // Make functions globally available
+    window.copyUPINumber = copyUPINumber;
+    window.openWhatsApp = openWhatsApp;
+    window.closeReminder = closeReminder;
 }
 
 // Setup modal event handlers
@@ -241,6 +246,110 @@ function setupPaymentMethodHandling() {
     });
 }
 
+// Copy UPI Number functionality
+function copyUPINumber() {
+    const upiNumber = '+91 7607244793';
+    
+    // Try to use the modern clipboard API
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(upiNumber).then(() => {
+            showCopySuccess();
+        }).catch(() => {
+            fallbackCopyTextToClipboard(upiNumber);
+        });
+    } else {
+        // Fallback for older browsers or non-HTTPS
+        fallbackCopyTextToClipboard(upiNumber);
+    }
+}
+
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+    
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+            showCopySuccess();
+        } else {
+            showCopyError();
+        }
+    } catch (err) {
+        showCopyError();
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+function showCopySuccess() {
+    const copyBtn = document.querySelector('.copy-btn');
+    if (copyBtn) {
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '✅ Copied!';
+        copyBtn.style.background = '#27ae60';
+        
+        setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+            copyBtn.style.background = '';
+        }, 2000);
+    }
+    
+    showToast('UPI number copied to clipboard!', 'success');
+}
+
+function showCopyError() {
+    showToast('Could not copy UPI number. Please copy manually: +91 7607244793', 'error');
+}
+
+// Enhanced UPI payment validation
+function validateUPIPayment() {
+    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    
+    if (selectedPayment && selectedPayment.value === 'UPI') {
+        // Show UPI payment reminder
+        const upiReminder = document.createElement('div');
+        upiReminder.className = 'upi-reminder';
+        upiReminder.innerHTML = `
+            <div class="reminder-content">
+                <h4>🔔 UPI Payment Reminder</h4>
+                <p>Please complete your UPI payment to <strong>+91 7607244793</strong> and share the screenshot via WhatsApp before sample collection.</p>
+                <div class="reminder-actions">
+                    <button type="button" onclick="openWhatsApp()" class="whatsapp-btn">
+                        💬 Send WhatsApp Message
+                    </button>
+                    <button type="button" onclick="closeReminder()" class="close-reminder">
+                        ✅ Payment Done
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(upiReminder);
+        setTimeout(() => upiReminder.classList.add('show'), 100);
+    }
+}
+
+function openWhatsApp() {
+    const message = encodeURIComponent("Hi! I have completed UPI payment for pathology test booking. Please find the payment screenshot attached.");
+    window.open(`https://wa.me/917607244793?text=${message}`, '_blank');
+}
+
+function closeReminder() {
+    const reminder = document.querySelector('.upi-reminder');
+    if (reminder) {
+        reminder.remove();
+    }
+}
+
 function validateField(field) {
     const value = field.value.trim();
     const fieldName = field.getAttribute('id');
@@ -365,6 +474,11 @@ function handleFormSubmission(e) {
     if (!isFormValid) {
         showToast('Please correct the errors and try again', 'error');
         return;
+    }
+
+    // Show UPI payment validation if UPI is selected
+    if (selectedPayment && selectedPayment.value === 'UPI') {
+        validateUPIPayment();
     }
     
     // Show loading state
