@@ -350,6 +350,67 @@ function closeReminder() {
     }
 }
 
+// Send booking details to WhatsApp
+function sendBookingToWhatsApp(formData) {
+    const bookingTime = new Date().toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    
+    let message = `🔬 *NEW PATHOLOGY TEST BOOKING*\n\n`;
+    message += `📅 *Booking Time:* ${bookingTime}\n\n`;
+    message += `👤 *Patient Details:*\n`;
+    message += `• Name: ${formData.name}\n`;
+    message += `• Age: ${formData.age}\n`;
+    message += `• Gender: ${formData.gender}\n`;
+    message += `• Mobile: ${formData.mobile}\n\n`;
+    message += `📍 *Address:*\n${formData.address}\n\n`;
+    message += `🧪 *Tests Selected:*\n`;
+    
+    formData.tests.forEach((test, index) => {
+        message += `${index + 1}. ${test}\n`;
+    });
+    
+    message += `\n💳 *Payment Method:* ${formData.payment_method}\n\n`;
+    
+    if (formData.payment_method === 'UPI') {
+        message += `⚠️ *UPI Payment Required*\n`;
+        message += `• UPI Number: +91 7607244793\n`;
+        message += `• Please collect payment before sample collection\n\n`;
+    }
+    
+    message += `📋 *Next Steps:*\n`;
+    message += `1. Contact patient to confirm booking\n`;
+    message += `2. Schedule sample collection\n`;
+    if (formData.payment_method === 'UPI') {
+        message += `3. Verify UPI payment\n`;
+        message += `4. Collect samples\n`;
+    } else {
+        message += `3. Collect payment and samples\n`;
+    }
+    
+    message += `\n✅ *Booking ID:* BK${Date.now().toString().slice(-6)}\n`;
+    message += `\n_Sent from Hind Path Lab Website_`;
+    
+    // Auto-open WhatsApp with the booking message
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/917607244793?text=${encodedMessage}`;
+    
+    // Open WhatsApp in a new tab
+    window.open(whatsappURL, '_blank');
+    
+    // Show toast notification
+    setTimeout(() => {
+        showToast('📱 Booking details sent to WhatsApp automatically!', 'success');
+    }, 1500);
+    
+    console.log('📱 Booking details sent to WhatsApp');
+}
+
 function validateField(field) {
     const value = field.value.trim();
     const fieldName = field.getAttribute('id');
@@ -524,6 +585,9 @@ function handleFormSubmission(e) {
                     console.log('⚠️ Formspree failed, but email backup sent');
                 }
                 
+                // Send booking details to WhatsApp
+                sendBookingToWhatsApp(formData);
+                
                 // Show success modal regardless
                 showSuccessModal();
                 
@@ -538,6 +602,10 @@ function handleFormSubmission(e) {
                 console.error('Formspree error:', error);
                 // Fallback: Open email client with pre-filled data
                 sendViaEmail(formData);
+                
+                // Send booking details to WhatsApp
+                sendBookingToWhatsApp(formData);
+                
                 showSuccessModal();
                 form.reset();
                 form.style.display = 'none';

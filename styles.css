@@ -1094,6 +1094,25 @@ footer {
     line-height: 1.6;
 }
 
+.modal-info {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    text-align: left;
+}
+
+.modal-info p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.modal-info p:last-child {
+    margin-bottom: 0;
+}
+
 .modal-close-btn {
     background: var(--primary-color);
     color: white;
