@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Hind Path Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #00695c, #004d40);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00695c;
+            margin-bottom: 0.5rem;
+        }
+        
+        .submissions {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .submissions-header {
+            background: #00695c;
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .refresh-btn {
+            background: #26a69a;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .submission-item {
+            border-bottom: 1px solid #f0f0f0;
+            padding: 1rem;
+        }
+        
+        .submission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .customer-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #00695c;
+        }
+        
+        .submission-time {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .customer-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .detail-item {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            min-width: 80px;
+        }
+        
+        .tests-list {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+        
+        .tests-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #00695c;
+        }
+        
+        .test-item {
+            padding: 0.25rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .test-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #00695c;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+        }
+        
+        .btn-call {
+            background: #2196f3;
+            color: white;
+        }
+        
+        .btn-email {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .no-submissions {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .customer-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔬 Hind Path Lab - Admin Panel</h1>
+        <p>Manage test bookings and customer requests</p>
+    </div>
+    
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalSubmissions">0</div>
+                <div>Total Submissions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todaySubmissions">0</div>
+                <div>Today's Bookings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingSubmissions">0</div>
+                <div>Pending Follow-ups</div>
+            </div>
+        </div>
+        
+        <div class="submissions">
+            <div class="submissions-header">
+                <h2>Recent Submissions</h2>
+                <button class="refresh-btn" onclick="loadSubmissions()">🔄 Refresh</button>
+            </div>
+            <div id="submissionsList">
+                <div class="no-submissions">
+                    <h3>📋 No submissions yet</h3>
+                    <p>Form submissions will appear here when customers book tests online.</p>
+                    <br>
+                    <h4>How to receive submissions:</h4>
+                    <ol style="text-align: left; display: inline-block;">
+                        <li>Set up Formspree account (free)</li>
+                        <li>Update form ID in scripts.js</li>
+                        <li>Submissions will be emailed to you</li>
+                        <li>They'll also appear here</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Sample data structure for submissions
+        let submissions = [];
+        
+        // Load submissions from localStorage or server
+        function loadSubmissions() {
+            // For now, load from localStorage (in production, fetch from server)
+            const stored = localStorage.getItem('hindPathLabSubmissions');
+            if (stored) {
+                submissions = JSON.parse(stored);
+            }
+            
+            updateStats();
+            renderSubmissions();
+        }
+        
+        // Update statistics
+        function updateStats() {
+            const today = new Date().toDateString();
+            const todayCount = submissions.filter(s => 
+                new Date(s.timestamp).toDateString() === today
+            ).length;
+            
+            document.getElementById('totalSubmissions').textContent = submissions.length;
+            document.getElementById('todaySubmissions').textContent = todayCount;
+            document.getElementById('pendingSubmissions').textContent = submissions.length;
+        }
+        
+        // Render submissions list
+        function renderSubmissions() {
+            const container = document.getElementById('submissionsList');
+            
+            if (submissions.length === 0) {
+                container.innerHTML = `
+                    <div class="no-submissions">
+                        <h3>📋 No submissions yet</h3>
+                        <p>Form submissions will appear here when customers book tests online.</p>
+                        <br>
+                        <h4>How to receive submissions:</h4>
+                        <ol style="text-align: left; display: inline-block;">
+                            <li>Set up Formspree account (free)</li>
+                            <li>Update form ID in scripts.js</li>
+                            <li>Submissions will be emailed to you</li>
+                            <li>They'll also appear here</li>
+                        </ol>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = submissions.map(submission => `
+                <div class="submission-item">
+                    <div class="submission-header">
+                        <div class="customer-name">${submission.name}</div>
+                        <div class="submission-time">${new Date(submission.timestamp).toLocaleString()}</div>
+                    </div>
+                    
+                    <div class="customer-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Age:</span>
+                            <span>${submission.age} years</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Gender:</span>
+                            <span>${submission.gender}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Mobile:</span>
+                            <span>${submission.mobile}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Address:</span>
+                            <span>${submission.address}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="tests-list">
+                        <div class="tests-title">Selected Tests (${submission.tests.length}):</div>
+                        ${submission.tests.map(test => `<div class="test-item">${test}</div>`).join('')}
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="https://wa.me/91${submission.mobile}?text=Hello ${submission.name}, thank you for booking tests with Hind Path Lab. We will contact you shortly to confirm your appointment." 
+                           class="btn btn-whatsapp" target="_blank">📱 WhatsApp</a>
+                        <a href="tel:+91${submission.mobile}" class="btn btn-call">📞 Call</a>
+                        <a href="mailto:${submission.email || 'customer@email.com'}?subject=Test Booking Confirmation&body=Dear ${submission.name}, Thank you for choosing Hind Path Lab..." 
+                           class="btn btn-email">📧 Email</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Initialize
+        loadSubmissions();
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadSubmissions, 30000);
+    </script>
+</body>
+</html>

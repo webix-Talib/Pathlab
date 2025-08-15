@@ -1,0 +1,54 @@
+📋 DEPLOYMENT CHECKLIST - Hind Path Lab Website
+
+PRE-DEPLOYMENT ✅
+□ All files present in C:\pathlab folder
+□ Form connected to Formspree (manbklrg)
+□ Email set to altaf9373@gmail.com
+□ Images in correct folder
+□ No broken links or errors
+
+DEPLOYMENT STEPS 🚀
+□ 1. Go to netlify.com
+□ 2. Sign up with Google account
+□ 3. Create ZIP of all website files
+□ 4. Drag ZIP to Netlify upload area
+□ 5. Wait for deployment (30 seconds)
+□ 6. Get your live URL
+
+POST-DEPLOYMENT TESTING ✅
+□ Website loads correctly
+□ All navigation links work
+□ Booking form submits successfully
+□ Form sends email to altaf9373@gmail.com
+□ Images display properly
+□ Mobile version looks good
+□ Admin panel accessible at /admin.html
+
+FINAL SETUP 🎯
+□ Bookmark admin panel URL
+□ Test form submission with real data
+□ Add website to Google My Business
+□ Share website URL with customers
+□ Update business cards/marketing materials
+
+WEBSITE URLS 📱
+Main Site: ________________.netlify.app
+Admin Panel: ________________.netlify.app/admin.html
+
+CONTACT METHODS 📞
+Form submissions → altaf9373@gmail.com
+Phone: +91 7607244793
+WhatsApp: https://wa.me/917607244793
+
+MAINTENANCE 🔧
+□ Check admin panel daily for bookings
+□ Respond to form submissions within 30 minutes  
+□ Update website content as needed
+□ Monitor email for customer inquiries
+
+BACKUP 💾
+□ Keep original files in C:\pathlab
+□ Regular backup of customer data
+□ Save Formspree account details
+
+🎉 CONGRATULATIONS! Your professional pathology lab website is LIVE! 🎉

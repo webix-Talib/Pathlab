@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://hindpathlab.com/</loc>
+        <lastmod>2025-01-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://hindpathlab.com/images/lab1.jpg</image:loc>
+            <image:title>Hind Path Lab - Quality Control</image:title>
+            <image:caption>Stringent quality checks at Hind Path Lab</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://hindpathlab.com/images/lab2.jpg</image:loc>
+            <image:title>Automated Laboratory Equipment</image:title>
+            <image:caption>State-of-the-art automated laboratory</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://hindpathlab.com/images/lab3.jpg</image:loc>
+            <image:title>Advanced Medical Technology</image:title>
+            <image:caption>Latest medical technology at Hind Path Lab</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://hindpathlab.com/images/lab4.jpg</image:loc>
+            <image:title>Expert Pathologists</image:title>
+            <image:caption>Experienced and skilled pathologists</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://hindpathlab.com/images/lab5.jpg</image:loc>
+            <image:title>Safe Blood Sampling</image:title>
+            <image:caption>Safe and precise blood sampling procedures</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Services Section -->
+    <url>
+        <loc>https://hindpathlab.com/#services</loc>
+        <lastmod>2025-01-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Booking Section -->
+    <url>
+        <loc>https://hindpathlab.com/#booking</loc>
+        <lastmod>2025-01-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Contact Section -->
+    <url>
+        <loc>https://hindpathlab.com/#contact</loc>
+        <lastmod>2025-01-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Gallery Section -->
+    <url>
+        <loc>https://hindpathlab.com/#gallery</loc>
+        <lastmod>2025-01-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+</urlset>

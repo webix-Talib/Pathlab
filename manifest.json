@@ -1,0 +1,33 @@
+{
+    "name": "Hind Path Lab - Trusted Pathology Services",
+    "short_name": "Hind Path Lab",
+    "description": "Professional pathology services with home sample collection in Basti, Uttar Pradesh",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#00695c",
+    "background_color": "#f8f9fa",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300695c'><path d='M6 2a1 1 0 1 1 2 0v2.586l1.293 1.293a1 1 0 0 1 .207 1.09l-.707 1.768a6.998 6.998 0 0 1 6.632 8.353H20a1 1 0 1 1 0 2h-7a1 1 0 0 1-1-1v-1a5 5 0 0 0-4.9-5H6a1 1 0 1 1 0-2h.586l.293-.293a1 1 0 0 1 1.415 0L9.586 10H6a1 1 0 1 1 0-2h3.586l-1-1H6V2zM4 18a1 1 0 0 1 1 1h4a1 1 0 1 1 0 2H5a1 1 0 1 1-1-1v-1a1 1 0 0 1 1-1z'/></svg>",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300695c'><path d='M6 2a1 1 0 1 1 2 0v2.586l1.293 1.293a1 1 0 0 1 .207 1.09l-.707 1.768a6.998 6.998 0 0 1 6.632 8.353H20a1 1 0 1 1 0 2h-7a1 1 0 0 1-1-1v-1a5 5 0 0 0-4.9-5H6a1 1 0 1 1 0-2h.586l.293-.293a1 1 0 0 1 1.415 0L9.586 10H6a1 1 0 1 1 0-2h3.586l-1-1H6V2zM4 18a1 1 0 0 1 1 1h4a1 1 0 1 1 0 2H5a1 1 0 1 1-1-1v-1a1 1 0 0 1 1-1z'/></svg>",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ],
+    "categories": ["health", "medical", "business"],
+    "lang": "en-IN",
+    "screenshots": [
+        {
+            "src": "images/lab1.jpg",
+            "sizes": "1280x720",
+            "type": "image/jpeg",
+            "platform": "wide"
+        }
+    ]
+}
