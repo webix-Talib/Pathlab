@@ -214,7 +214,7 @@ function setupFormHandling() {
 
 // Payment method functionality
 function setupPaymentMethodHandling() {
-    const paymentRadios = document.querySelectorAll('input[name="payment_method"]');
+    const paymentRadios = document.querySelectorAll('input[name="payment"]');
     const upiSection = document.querySelector('.upi-section');
     
     if (!paymentRadios.length || !upiSection) return;
@@ -225,7 +225,7 @@ function setupPaymentMethodHandling() {
     // Handle payment method changes
     paymentRadios.forEach(radio => {
         radio.addEventListener('change', function() {
-            if (this.value === 'upi' && this.checked) {
+            if (this.value === 'UPI' && this.checked) {
                 upiSection.style.display = 'block';
                 // Smooth scroll to UPI section
                 setTimeout(() => {
@@ -356,7 +356,7 @@ function handleFormSubmission(e) {
     }
     
     // Check if payment method is selected
-    const selectedPayment = form.querySelector('input[name="payment_method"]:checked');
+    const selectedPayment = form.querySelector('input[name="payment"]:checked');
     if (!selectedPayment) {
         showToast('Please select a payment method', 'error');
         isFormValid = false;
